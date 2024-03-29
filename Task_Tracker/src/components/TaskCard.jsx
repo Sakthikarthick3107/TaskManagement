@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '../GlobalContext';
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid";
+import EditModal from './EditModal';
 
 const TaskCard = ({task}) => {
   const[isMenuOpen , setIsMenuOpen] = useState(false);
   const wrapperRef = useRef(null);
+  const[isEdit , setIsEdit] = useState(false);
   const {theme} = useTheme();
 
   useEffect(() => {
@@ -24,7 +26,8 @@ const TaskCard = ({task}) => {
   }, []);
 
   return (
-    <div ref={wrapperRef} className={`relative mb-2 flex flex-col w-[90%] itemx-center bg-light-card p-2`}>
+    <>
+    <div ref={wrapperRef} className={`relative mb-2 flex flex-col w-[95%] itemx-center bg-light-card p-2`}>
         <div className="flex  flex-row w-full justify-between items-center border-b-2">
             <p>{task.name}</p>
             <p className='bg-btn rounded-full text-white p-1 text-xs'>{task.priority}</p>
@@ -42,14 +45,16 @@ const TaskCard = ({task}) => {
           tabIndex="-1"
         >
           <div className="flex flex-col" role="none">
-            <button className='text-left w-full hover:bg-light-box p-1'>Edit</button>
+            <button onClick={()=>setIsEdit(!isEdit)} className='text-left w-full hover:bg-light-box p-1'>Edit</button>
             <button className='text-left w-full hover:bg-light-box p-1'>Delete</button>
           </div>
         </div>
       )}
         </div>
-        {/* {task.description} */}
+        
     </div>
+    <EditModal isOpen={isEdit} onClose={setIsEdit}/>
+    </>
   )
 }
 

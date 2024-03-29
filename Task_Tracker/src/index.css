@@ -11,8 +11,9 @@ body {
 }
 
 .task-scrollbar::-webkit-scrollbar{
-  scrollbar-width: thin;
+  scrollbar-width: 0;
   background-color: transparent;
+  display: none;
 }
 
 /* :root {
