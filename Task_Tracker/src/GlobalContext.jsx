@@ -3,29 +3,41 @@ import  {useState , createContext , useContext, useEffect} from 'react';
 const GlobalContext = createContext();
 
 export const GlobalProvider = ({children}) => {
-    const[theme , setTheme] = useState('light');
-    
-    const tasks = [{"name":"aenean sit","description":"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.","assign":"Ralph","priority":"P1","status":"Completed","start_date":"11/1/2023","due_date":"8/1/2023"},
-    {"name":"accumsan tortor quis turpis","description":"Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.","assign":"Gabriella","priority":"P1","status":"Assigned","start_date":"1/24/2024","due_date":"3/7/2024"},
-    {"name":"nisl duis","description":"Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.","assign":"Marena","priority":"P2","status":"Assigned","start_date":"1/21/2024","due_date":"12/24/2023"},
-    {"name":"diam in magna bibendum","description":"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.","assign":"Grace","priority":"P1","status":"Assigned","start_date":"7/27/2023","due_date":"12/30/2023"},
-    {"name":"consectetuer adipiscing","description":"In congue. Etiam justo. Etiam pretium iaculis justo.","assign":"Emmett","priority":"P2","status":"Assigned","start_date":"8/8/2023","due_date":"6/2/2023"},
-    {"name":"sem duis aliquam","description":"Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.","assign":"Oren","priority":"P0","status":"Deployed","start_date":"5/25/2023","due_date":"10/21/2023"},
-    {"name":"ut rhoncus","description":"In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.","assign":"Cull","priority":"P2","status":"Deployed","start_date":"8/20/2023","due_date":"12/3/2023"},
-    {"name":"velit nec","description":"Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.","assign":"Mellisent","priority":"P2","status":"Deployed","start_date":"12/9/2023","due_date":"12/30/2023"},
-    {"name":"consectetuer adipiscing","description":"Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.","assign":"Gordan","priority":"P2","status":"Assigned","start_date":"6/5/2023","due_date":"9/6/2023"},
-    {"name":"potenti in","description":"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.","assign":"Eziechiele","priority":"P2","status":"Deferred","start_date":"2/23/2024","due_date":"12/23/2023"},
-    {"name":"suspendisse potenti cras","description":"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.","assign":"Louella","priority":"P0","status":"Assigned","start_date":"8/27/2023","due_date":"5/13/2023"},
-    {"name":"vivamus tortor duis","description":"Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.","assign":"Stormy","priority":"P1","status":"Assigned","start_date":"1/31/2024","due_date":"8/3/2023"},
-    {"name":"luctus et ultrices","description":"Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.","assign":"Merrielle","priority":"P2","status":"In Progress","start_date":"3/31/2023","due_date":"7/9/2023"},
-    {"name":"venenatis lacinia aenean sit","description":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.","assign":"Von","priority":"P0","status":"Deployed","start_date":"3/7/2024","due_date":"12/9/2023"},
-    {"name":"id ligula","description":"Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.","assign":"Lief","priority":"P0","status":"Assigned","start_date":"7/11/2023","due_date":"6/26/2023"},
-    {"name":"feugiat non pretium quis","description":"Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.","assign":"Kathryne","priority":"P0","status":"Deferred","start_date":"7/24/2023","due_date":"7/17/2023"},
-    {"name":"cras non velit nec","description":"In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.","assign":"Frasier","priority":"P1","status":"In Progress","start_date":"9/4/2023","due_date":"5/15/2023"},
-    {"name":"amet cursus id turpis","description":"Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.","assign":"Amargo","priority":"P0","status":"Completed","start_date":"8/16/2023","due_date":"11/24/2023"},
-    {"name":"lacinia erat vestibulum","description":"Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.","assign":"Kaia","priority":"P2","status":"Deferred","start_date":"7/7/2023","due_date":"8/3/2023"},
-    {"name":"ut erat curabitur","description":"Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.","assign":"Tina","priority":"P0","status":"Deffered","start_date":"6/29/2023","due_date":"12/3/2023"}]
+    const[theme , setTheme] = useState(null);
 
+   useEffect(()=>{
+    const bg = localStorage.getItem('theme');
+    if(bg){
+        setTheme(bg);
+    }
+    else{
+        localStorage.setItem('theme' , 'light')
+    }
+   },[])
+
+    
+    
+    const [tasks , setTasks] =useState([{"id":1,"name":"fusce","description":"Proin interdum mauris non ligula pellentesque ultrices.","assign":"Babu","priority":"P1","status":"In Progress","start_date":"1/20/2024","due_date":"7/26/2023"},
+    {"id":2,"name":"in leo","description":"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue.","assign":"Sachin","priority":"P0","status":"Completed","start_date":"1/18/2024","due_date":"2/25/2024"},
+    {"id":3,"name":"justo sollicitudin","description":"In hac habitasse platea dictumst. Etiam faucibus cursus urna.","assign":"Charles","priority":"P2","status":"Deffered","start_date":"1/28/2024","due_date":"4/26/2023"},
+    {"id":4,"name":"nibh in","description":"Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede. Morbi porttitor lorem id ligula.","assign":"Babu","priority":"P0","status":"Deffered","start_date":"1/26/2024","due_date":"2/7/2024"},
+    {"id":5,"name":"donec","description":"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue.","assign":"Daniel","priority":"P2","status":"Assigned","start_date":"1/23/2024","due_date":"6/13/2023"},
+    {"id":6,"name":"varius","description":"Nunc rhoncus dui vel sem.","assign":"Elango","priority":"P1","status":"Deployed","start_date":"1/16/2024","due_date":"9/24/2023"},
+    {"id":7,"name":"pellentesque ultrices","description":"Vivamus vel nulla eget eros elementum pellentesque.","assign":"Charles","priority":"P2","status":"Assigned","start_date":"1/10/2024","due_date":"1/28/2024"},
+    {"id":8,"name":"nec","description":"Fusce consequat.","assign":"Charles","priority":"P1","status":"Deployed","start_date":"1/22/2024","due_date":"5/29/2023"},
+    {"id":9,"name":"parturient montes","description":"In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl. Nunc nisl.","assign":"Charles","priority":"P1","status":"Deffered","start_date":"1/9/2024","due_date":"4/18/2023"},
+    {"id":10,"name":"natoque penatibus","description":"Maecenas tincidunt lacus at velit.","assign":"Sachin","priority":"P1","status":"Completed","start_date":"1/8/2024","due_date":"1/31/2024"},
+    {"id":11,"name":"ut at","description":"In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.","assign":"Daniel","priority":"P1","status":"Assigned","start_date":"1/26/2024","due_date":"3/25/2023"},
+    {"id":12,"name":"a feugiat","description":"Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.","assign":"Elango","priority":"P1","status":"Completed","start_date":"1/13/2024","due_date":"9/28/2023"},
+    {"id":13,"name":"erat fermentum","description":"Aenean sit amet justo. Morbi ut odio. Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo.","assign":"Sachin","priority":"P0","status":"Deployed","start_date":"1/1/2024","due_date":"12/25/2023"},
+    {"id":14,"name":"a","description":"Nam dui. Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.","assign":"Akash","priority":"P1","status":"Deffered","start_date":"1/19/2024","due_date":"12/24/2023"},
+    {"id":15,"name":"vestibulum aliquet","description":"Nulla ut erat id mauris vulputate elementum. Nullam varius.","assign":"Babu","priority":"P0","status":"Assigned","start_date":"1/10/2024","due_date":"9/9/2023"},
+    {"id":16,"name":"eu","description":"Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem. Integer tincidunt ante vel ipsum.","assign":"Daniel","priority":"P1","status":"Completed","start_date":"1/7/2024","due_date":"2/6/2023"},
+    {"id":17,"name":"vivamus vel","description":"Duis mattis egestas metus.","assign":"Babu","priority":"P2","status":"In Progress","start_date":"1/25/2024","due_date":"7/12/2023"},
+    {"id":18,"name":"luctus","description":"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.","assign":"Charles","priority":"P0","status":"Deployed","start_date":"1/29/2024","due_date":"8/10/2023"},
+    {"id":19,"name":"odio cras","description":"Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem. Fusce consequat. Nulla nisl.","assign":"Daniel","priority":"P1","status":"Completed","start_date":"1/14/2024","due_date":"12/6/2023"},
+    {"id":20,"name":"at dolor","description":"Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit.","assign":"Daniel","priority":"P2","status":"Deployed","start_date":"1/22/2024","due_date":"6/28/2023"}]
+    )
     const priority = ['P0' , 'P1' , 'P2'];
     const status = [
         {name:'Assigned' , color : '#8C8B90'} , 
@@ -33,14 +45,37 @@ export const GlobalProvider = ({children}) => {
         {name : 'Completed' , color : '#41AA1C'} , 
         {name : 'Deployed' , color : '#353976' }, 
         {name : 'Deffered' , color :'#F58872'}] 
+    
+    const members = ['Akash','Babu','Charles','Daniel','Elango','Sachin']
     const toggleTheme = () =>{
         setTheme((prev )=> prev === 'light' ? 'dark' : 'light');
         console.log(theme)
     }
 
+    const addNewTask = (task)=>{
+        console.log(task)
+        const updated = [ task , ...tasks];
+        setTasks(updated);
+    }
+
+    const updateTask = (id,newPriority , newStatus) =>{
+        const updatedTasks = tasks.map((task) =>{
+            if(task.id === id){
+                return{...task ,   priority : newPriority , status:newStatus};
+            }
+            return task;
+        });
+        setTasks(updatedTasks)
+    }
+
+    const deleteTask = (id) =>{
+        const removedTask = tasks.filter((task) => task.id !== id);
+        setTasks(removedTask);
+    }
+
 
     return(
-        <GlobalContext.Provider value={{theme,toggleTheme , tasks , priority , status}}>
+        <GlobalContext.Provider value={{theme,toggleTheme , tasks , priority,members , status ,addNewTask, updateTask , deleteTask}}>
             {children}
         </GlobalContext.Provider>
     )

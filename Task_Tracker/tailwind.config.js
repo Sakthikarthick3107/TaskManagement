@@ -12,13 +12,15 @@ export default {
           text : '#000000',
           box:'#FFFFFF',
           bgcolor : '#F0F8FF',
-          card : '#F3F1F2'
+          card : '#F3F1F2',
+          modalBg:'#1A1A1A'
         },
         dark:{
           text : '#F0F8FF',
           box:'#282828',
           bgcolor : '#1A1A1A',
-          card:'#171717'
+          card:'#171717',
+          modalBg:'#F0F8FF'
         }
       }
     },
